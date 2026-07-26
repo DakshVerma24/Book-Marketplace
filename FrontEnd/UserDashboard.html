@@ -152,6 +152,24 @@
     background:var(--green-deep);
     color:var(--paper);
   }
+
+  .table-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+
+  @media (max-width: 640px){
+    body{ padding:32px 16px 120px; }
+    h1{ font-size:1.6rem; }
+    .subtitle{ margin-bottom:28px; }
+    h2{ margin:32px 0 14px; font-size:1.1rem; }
+    .stats-row{
+      grid-template-columns:1fr;
+    }
+    .stat-box{ padding:18px 20px; display:flex; align-items:center; justify-content:space-between; }
+    .stat-box span{ margin-top:0; font-size:1.5rem; }
+    table{ min-width:480px; }
+    th, td{ padding:12px 14px; }
+    .pill-nav{ bottom:14px; gap:2px; padding:6px; }
+    .pill-nav a{ padding:10px 14px; font-size:0.8rem; }
+  }
 </style>
 </head>
 <body>
@@ -168,7 +186,7 @@
   </div>
 
   <h2>My Listings</h2>
-  <div class="table-card">
+  <div class="table-card table-scroll">
     <table>
       <thead>
         <tr>
@@ -183,7 +201,7 @@
   </div>
 
   <h2>Purchase History</h2>
-  <div class="table-card">
+  <div class="table-card table-scroll">
     <table>
       <thead>
         <tr>

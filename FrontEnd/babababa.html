@@ -200,6 +200,21 @@
       background:var(--green-deep);
       color:var(--paper);
     }
+
+    @media (max-width: 640px){
+      body{ padding:32px 16px 120px; }
+      h1{ font-size:1.6rem; margin-bottom:32px; }
+      .form-card{ padding:22px 20px; margin-bottom:40px; }
+      #items{ gap:14px; }
+      .card{ width:calc(50% - 7px); }
+      img{ height:130px; }
+      .pill-nav{ bottom:14px; padding:6px; }
+      .pill-nav a{ padding:10px 14px; font-size:0.8rem; }
+    }
+
+    @media (max-width: 380px){
+      .card{ width:100%; }
+    }
   </style>
 </head>
 <body>

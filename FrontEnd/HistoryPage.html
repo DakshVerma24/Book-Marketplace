@@ -1,23 +1,88 @@
 <html>
  <head>
-  <title>History Page</title>
+  <title>History — ShikshaSeva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
- .card {
-    background: lightgray;
-    padding: 15px;
-    margin: 10px;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    display: inline-block;
-    width: 1000px;
-    vertical-align: top;
-    height: 180px;
-}
+  :root{
+    --paper:#FAF7F0;
+    --paper-deep:#F2EDE2;
+    --ink:#211F1B;
+    --green:#2F4538;
+    --green-deep:#1E2E26;
+    --gray:#8C8579;
+    --clay:#B5483D;
+    --line: rgba(33,31,27,0.12);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    padding:48px 24px 80px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page-wrap{ max-width:900px; margin:0 auto; }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.8rem;
+    letter-spacing:-0.01em;
+    margin-bottom:6px;
+  }
+  .restricted-tag{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--clay);
+    border:1px solid var(--clay);
+    padding:4px 10px;
+    border-radius:20px;
+    margin-bottom:32px;
+  }
+  #sales{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+    gap:16px;
+  }
+  .card {
+    background: #fff;
+    padding: 20px 22px;
+    border-radius: 14px;
+    border:1px solid var(--line);
+    box-shadow: 0 10px 26px -18px rgba(33,31,27,0.25);
+    width:auto;
+    height:auto;
+  }
+  .card h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.05rem;
+    margin:0 0 10px;
+  }
+  .card p{
+    margin:0 0 4px;
+    font-size:0.88rem;
+    color:var(--gray);
+  }
+  .card p:last-child{ margin-bottom:0; }
+
+  @media (max-width: 640px){
+    body{ padding:32px 16px 60px; }
+    h1{ font-size:1.4rem; }
+    #sales{ grid-template-columns:1fr; }
+  }
 </style>
  </head>
   <body>
-   <h1>HISTORY(RESTRICTED ACCESS)</h1>
-<div id="sales"></div>
+   <div class="page-wrap">
+     <h1>Sales History</h1>
+     <span class="restricted-tag">Restricted Access</span>
+     <div id="sales"></div>
+   </div>
 </body>
 <script>
 async function loadSales() {

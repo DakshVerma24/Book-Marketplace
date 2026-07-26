@@ -160,6 +160,23 @@
     background:var(--green-deep);
     color:var(--paper);
   }
+
+  @media (max-width: 640px){
+    body{ padding:32px 16px 120px; }
+    h1{ font-size:1.6rem; margin-bottom:24px; }
+    #searchInput{ padding:12px 18px; margin-bottom:28px; }
+    .card{
+      flex-wrap:wrap;
+      padding:14px;
+      gap:10px 14px;
+    }
+    img{ height:56px; width:56px; }
+    .card h3{ font-size:1rem; flex:1 1 auto; min-width:0; }
+    .card p{ flex-basis:100%; order:3; }
+    button{ flex:1; order:4; }
+    .pill-nav{ bottom:14px; padding:6px; }
+    .pill-nav a{ padding:10px 14px; font-size:0.8rem; }
+  }
 </style>
  </head>
 <body>
