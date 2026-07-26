@@ -1,0 +1,248 @@
+<html>
+ <head>
+  <title>Buy Books</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+ :root{
+   --paper:#FAF7F0;
+   --paper-deep:#F2EDE2;
+   --ink:#211F1B;
+   --green:#2F4538;
+   --green-deep:#1E2E26;
+   --gray:#8C8579;
+   --line: rgba(33,31,27,0.12);
+ }
+ *{box-sizing:border-box;}
+ body {
+  margin:0;
+  font-family:'Inter', sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  text-align: center;
+  padding:48px 24px 140px;
+  -webkit-font-smoothing:antialiased;
+ }
+ h1{
+   font-family:'Fraunces', serif;
+   font-weight:600;
+   font-size:2rem;
+   letter-spacing:-0.01em;
+   margin-bottom:32px;
+ }
+ .page-wrap{max-width:880px; margin:0 auto;}
+
+ #searchInput {
+  height:auto;
+  width:100%;
+  max-width:520px;
+  font-size:1rem;
+  padding:14px 20px;
+  border-radius:30px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  font-family:'Inter', sans-serif;
+  margin-bottom:36px;
+  box-shadow:0 8px 22px -16px rgba(33,31,27,0.25);
+ }
+ #searchInput:focus{
+  outline:none;
+  border-color:var(--green);
+ }
+
+  .card {
+      background: #fff;
+      padding: 14px 18px;
+      margin: 0 0 14px;
+      border-radius: 16px;
+      box-shadow: 0 8px 22px -16px rgba(33,31,27,0.25);
+      border:1px solid var(--line);
+      display: flex;
+      align-items:center;
+      gap:18px;
+      width: 100%;
+      text-align:left;
+      height:auto;
+      transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 30px -16px rgba(33,31,27,0.3);
+  }
+  button {
+    padding: 10px 18px;
+    cursor: pointer;
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:0.84rem;
+    border-radius:30px;
+    border:1px solid var(--ink);
+    background:transparent;
+    color:var(--ink);
+    transition:background .2s ease, color .2s ease, transform .15s ease;
+    margin-top:0;
+    flex-shrink:0;
+  }
+  button:active{transform:scale(0.96);}
+  .card button:first-of-type{
+    background:var(--green-deep);
+    border-color:var(--green-deep);
+    color:var(--paper);
+  }
+  .card button:first-of-type:hover{opacity:0.88;}
+  .card button:last-of-type:hover{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  img {
+    height: 72px;
+    width: 72px;
+    object-fit:cover;
+    border-radius:10px;
+    flex-shrink:0;
+    background:var(--paper-deep);
+  }
+
+  .card h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.05rem;
+    margin:0 0 4px;
+    flex:1;
+  }
+  .card p{
+    margin:0;
+    font-size:0.85rem;
+    color:var(--gray);
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  .card-text{flex:1; min-width:0;}
+  .card-actions{display:flex; gap:8px;}
+
+  /* Bottom pill nav */
+  .pill-nav{
+    position:fixed;
+    left:50%;
+    bottom:22px;
+    transform:translateX(-50%);
+    display:flex;
+    gap:6px;
+    padding:8px;
+    background:rgba(250,247,240,0.65);
+    backdrop-filter:blur(16px) saturate(180%);
+    -webkit-backdrop-filter:blur(16px) saturate(180%);
+    border:1px solid rgba(255,255,255,0.5);
+    border-radius:999px;
+    box-shadow:0 12px 32px -10px rgba(33,31,27,0.35);
+    z-index:100;
+  }
+  .pill-nav a{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    padding:11px 20px;
+    border-radius:999px;
+    font-family:'Inter', sans-serif;
+    font-size:0.86rem;
+    font-weight:500;
+    color:var(--ink);
+    text-decoration:none;
+    opacity:0.6;
+    transition:opacity .2s ease, background .2s ease;
+  }
+  .pill-nav a svg{width:18px; height:18px; flex-shrink:0;}
+  .pill-nav a:hover{opacity:0.9;}
+  .pill-nav a.active{
+    opacity:1;
+    background:var(--green-deep);
+    color:var(--paper);
+  }
+</style>
+ </head>
+<body>
+<div class="page-wrap">
+  <h1>Available Items</h1>
+  <input type="text" id="searchInput" placeholder="Search items" onkeyup="filterItems()" />
+  <div id="items"></div>
+</div>
+
+<nav class="pill-nav">
+  <a href="tatti.html" class="active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    Buy
+  </a>
+  <a href="babababa.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Sell
+  </a>
+  <a href="UserDashboard.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Dashboard
+  </a>
+</nav>
+
+</body>
+<script>
+const API = "http://localhost:5000";
+let allItems = [];
+window.onload = loadItems;
+async function loadItems() {
+  try {
+    const res = await fetch(`${API}/items`);
+    const items = await res.json();
+    allItems = items;
+    renderItems(items);
+  } catch (err) {
+    console.error("Error loading items:", err);
+  }
+}
+function renderItems(items) {
+  const div = document.getElementById("items");
+  div.innerHTML = "";
+  items.forEach(item => {
+    div.innerHTML += `
+      <div class="card">
+        <img src="data:image/jpeg;base64,${item.image}" />
+        <h3>${item.title}</h3>
+        <p>Price: ₹200</p>
+        <p>Seller: ${item.sellerName}</p>
+        <button onclick="buyItem('${item._id}')">Buy</button>
+        <button onclick="openItem('${item._id}')">View</button>
+      </div>
+    `;
+  });
+}
+function filterItems() {
+  const query = document.getElementById("searchInput").value.toLowerCase();
+  const filtered = allItems.filter(item =>
+    item.title.toLowerCase().includes(query)
+  );
+  renderItems(filtered);
+}
+function openItem(id) {
+window.location.href = `item.html?id=${id}`;
+}
+async function buyItem(id) {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${API}/buy-item/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message);
+    }
+    alert("Item Purchased for ₹200!");
+    loadItems();
+  } catch (err) {
+    console.error("Error buying item:", err);
+  }
+}
+</script>
+</html>

@@ -1,0 +1,59 @@
+<html>
+    <head>
+   <title> ShikshaSeva </title>
+<style>
+ .container {
+ display: flex;
+ gap: 40px;
+}
+ .buy {
+text-align: left;
+margin-right: 0px;
+
+
+}
+
+.sell {
+text-align: right;
+margin-left:0px;
+}
+body {
+ text-align: center;
+ font-family: sans-serif;
+
+}
+
+ button {
+ background-color: #56C702;
+ border-radius: 20px;
+ width: 650px;
+ height: 400px;
+ font-size: 100px;
+ transition-duration: 0.4s;
+}
+
+ button:hover {
+font-size: 110px;
+
+}
+</style>
+    <body>
+    <h1>ShikshaSeva</h1>
+<div class="container">
+<div class="buy"><a href="tatti.html"><button> Buy </button></a></div>
+<div class="sell"><a href="babababa.html"><button> Sell </button></a></div>
+</div>
+</body>
+<script>
+const user = localStorage.getItem("Username");
+
+if (!user) {
+  alert("No user found. Please login first.");
+  window.location.href = "RealLog.html";
+} else {
+  console.log("Sonion user:", user);
+  alert("Sonion sees: " + user);
+}
+</script>
+</html>
+

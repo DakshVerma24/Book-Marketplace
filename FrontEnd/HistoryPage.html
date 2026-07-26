@@ -1,0 +1,46 @@
+<html>
+ <head>
+  <title>History Page</title>
+<style>
+ .card {
+    background: lightgray;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: inline-block;
+    width: 1000px;
+    vertical-align: top;
+    height: 180px;
+}
+</style>
+ </head>
+  <body>
+   <h1>HISTORY(RESTRICTED ACCESS)</h1>
+<div id="sales"></div>
+</body>
+<script>
+async function loadSales() {
+
+  const res = await fetch("http://localhost:5000/sales");
+
+  const sales = await res.json();
+
+  const div = document.getElementById("sales");
+
+  sales.forEach(sale => {
+
+    div.innerHTML += `
+      <div class="card">
+        <h3>${sale.bookTitle}</h3>
+        <p>Seller: ${sale.seller}</p>
+        <p>Buyer: ${sale.buyer}</p>
+        <p>Date: ${new Date(sale.soldAt).toLocaleString()}</p>
+      </div>
+    `;
+  });
+}
+
+loadSales();
+</script>
+</html>

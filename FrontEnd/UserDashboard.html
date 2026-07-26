@@ -1,0 +1,292 @@
+<html>
+<head>
+<title>User Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF7F0;
+    --paper-deep:#F2EDE2;
+    --ink:#211F1B;
+    --green:#2F4538;
+    --green-deep:#1E2E26;
+    --gray:#8C8579;
+    --line: rgba(33,31,27,0.12);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    padding:48px 24px 140px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px; margin:0 auto;}
+
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:2.2rem;
+    letter-spacing:-0.01em;
+    margin-bottom:8px;
+  }
+  h1 span#username{color:var(--green);}
+  .subtitle{color:var(--gray); font-size:0.95rem; margin-bottom:40px;}
+
+  h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.3rem;
+    margin:44px 0 18px;
+  }
+
+  /* Stats */
+  .stats-row{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+    margin-bottom:8px;
+  }
+  .stat-box{
+    background:var(--paper);
+    padding:26px 22px;
+  }
+  .stat-box p{margin:0; font-size:0.8rem; color:var(--gray); text-transform:uppercase; letter-spacing:0.04em; font-family:'JetBrains Mono', monospace;}
+  .stat-box span{
+    display:block;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:2rem;
+    margin-top:8px;
+    color:var(--ink);
+  }
+
+  /* Tables */
+  .table-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 10px 28px -20px rgba(33,31,27,0.25);
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:0.92rem;
+  }
+  thead tr{background:var(--paper-deep);}
+  th{
+    text-align:left;
+    padding:14px 18px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--gray);
+    font-weight:500;
+    border-bottom:1px solid var(--line);
+  }
+  td{
+    padding:14px 18px;
+    border-bottom:1px solid var(--line);
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--paper-deep);}
+
+  /* Logout */
+  .logout-btn{
+    margin-top:40px;
+    background:transparent;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:0.85rem;
+    padding:11px 24px;
+    border-radius:30px;
+    cursor:pointer;
+    transition:background .2s ease, color .2s ease;
+  }
+  .logout-btn:hover{background:var(--ink); color:var(--paper);}
+
+  /* Bottom pill nav */
+  .pill-nav{
+    position:fixed;
+    left:50%;
+    bottom:22px;
+    transform:translateX(-50%);
+    display:flex;
+    gap:6px;
+    padding:8px;
+    background:rgba(250,247,240,0.65);
+    backdrop-filter:blur(16px) saturate(180%);
+    -webkit-backdrop-filter:blur(16px) saturate(180%);
+    border:1px solid rgba(255,255,255,0.5);
+    border-radius:999px;
+    box-shadow:0 12px 32px -10px rgba(33,31,27,0.35);
+    z-index:100;
+  }
+  .pill-nav a{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    padding:11px 20px;
+    border-radius:999px;
+    font-family:'Inter', sans-serif;
+    font-size:0.86rem;
+    font-weight:500;
+    color:var(--ink);
+    text-decoration:none;
+    opacity:0.6;
+    transition:opacity .2s ease, background .2s ease;
+  }
+  .pill-nav a svg{width:18px; height:18px; flex-shrink:0;}
+  .pill-nav a:hover{opacity:0.9;}
+  .pill-nav a.active{
+    opacity:1;
+    background:var(--green-deep);
+    color:var(--paper);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <h1>Welcome <span id="username"></span></h1>
+  <p class="subtitle">Here's what's happening with your books.</p>
+
+  <h2>Statistics</h2>
+  <div class="stats-row">
+    <div class="stat-box"><p>Total Listings</p><span id="total">0</span></div>
+    <div class="stat-box"><p>Sold Items</p><span id="sold">0</span></div>
+    <div class="stat-box"><p>Items Purchased</p><span id="purchased">0</span></div>
+  </div>
+
+  <h2>My Listings</h2>
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Title</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="ListingTable">
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Purchase History</h2>
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Book</th>
+          <th>Purchased On</th>
+        </tr>
+      </thead>
+      <tbody id="purchaseTable">
+      </tbody>
+    </table>
+  </div>
+
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+<nav class="pill-nav">
+  <a href="tatti.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    Buy
+  </a>
+  <a href="babababa.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Sell
+  </a>
+  <a href="UserDashboard.html" class="active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Dashboard
+  </a>
+</nav>
+
+</body>
+<script>
+const API = "http://localhost:5000"
+window.onload = loadDashboard;
+async function loadDashboard() {
+const token = localStorage.getItem("token");
+
+if (!token) {
+alert("Please login first.");
+window.location.href = "RealLog.html";
+return;
+}
+
+const response = await  fetch(`${API}/my-items`, {
+headers: {
+Authorization: "Bearer " + token
+}
+});
+const items = await response.json();
+const totalListings = items.length;
+document.getElementById("total").innerText = totalListings;
+const table = document.getElementById("ListingTable");
+table.innerHTML = "";
+items.forEach((item, index) => {
+    table.innerHTML += `
+        <tr>
+        <td>${index + 1}</td>
+        <td>${item.title}</td>
+        <td>${item.status}</td>
+        </tr>
+    `;
+});
+document.getElementById("username").innerText =
+    localStorage.getItem("Username");
+const salesResponse = await fetch(`${API}/my-sales`, {
+    headers: {
+        Authorization: "Bearer " + token
+    }
+});
+const sales = await salesResponse.json();
+document.getElementById("sold").innerText = sales.length;
+const purchasesResponse = await fetch(`${API}/my-purchases`, {
+    headers: {
+        Authorization: "Bearer " + token
+    }
+});
+const purchases = await purchasesResponse.json();
+document.getElementById("purchased").innerText = purchases.length;
+
+if (purchases.length === 0) {
+purchaseTable.innerHTML = `
+    <tr>
+        <td colspan="3">No purchases yet.</td>
+    </tr>
+`;
+} else {
+purchases.forEach((purchase, index) => {
+    purchaseTable.innerHTML += `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${purchase.bookTitle}</td>
+            <td>${new Date(purchase.soldAt).toLocaleDateString()}</td>
+        </tr>
+    `;
+});
+}
+}
+function logout() {
+localStorage.removeItem("token");
+localStorage.removeItem("Username");
+alert("Logged out successfully!");
+window.location.href = "RealLog.html";
+}
+</script>
+</html>

@@ -1,0 +1,301 @@
+<html>
+<head>
+  <title>Item Details</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --paper:#FAF7F0;
+      --paper-deep:#F2EDE2;
+      --ink:#211F1B;
+      --green:#2F4538;
+      --green-deep:#1E2E26;
+      --gray:#8C8579;
+      --clay:#B5483D;
+      --line: rgba(33,31,27,0.12);
+    }
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      padding: 40px 24px 140px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page-wrap{ max-width: 980px; margin: 0 auto; }
+
+    /* Back link */
+    #backLink {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--gray);
+      cursor: pointer;
+      margin-bottom: 36px;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+    #backLink:hover{ color: var(--ink); }
+
+    h1{
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.9rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 36px;
+    }
+
+    /* Loading state */
+    #itemContainer p {
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+
+    /* Layout */
+    .atoms {
+      display: flex;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    /* Image */
+    .atoms img {
+      width: 380px;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 16px;
+      flex-shrink: 0;
+      background: var(--paper-deep);
+      border: 1px solid var(--line);
+    }
+
+    /* Right side */
+    .passion {
+      flex: 1;
+      min-width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 24px 26px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 28px -20px rgba(33,31,27,0.25);
+      text-align: left;
+      width: auto;
+    }
+
+    .card h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      color: #4A463F;
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+    .card p:last-child{ margin-bottom: 0; }
+
+    .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray);
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--green);
+      color: var(--green);
+      margin-top: 2px;
+    }
+
+    .sold-badge {
+      border-color: var(--clay);
+      color: var(--clay);
+    }
+
+    button {
+      margin-top: 8px;
+      padding: 14px 28px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.92rem;
+      border-radius: 30px;
+      border: none;
+      background: var(--green-deep);
+      color: var(--paper);
+      cursor: pointer;
+      width: 100%;
+      transition: opacity .2s ease, transform .15s ease;
+    }
+    button:hover{ opacity: 0.88; }
+    button:active{ transform: scale(0.97); }
+
+    /* Bottom pill nav */
+    .pill-nav{
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      padding: 8px;
+      background: rgba(250,247,240,0.65);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 999px;
+      box-shadow: 0 12px 32px -10px rgba(33,31,27,0.35);
+      z-index: 100;
+    }
+    .pill-nav a{
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 20px;
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      opacity: 0.6;
+      transition: opacity .2s ease, background .2s ease;
+    }
+    .pill-nav a svg{ width: 18px; height: 18px; flex-shrink: 0; }
+    .pill-nav a:hover{ opacity: 0.9; }
+    .pill-nav a.active{
+      opacity: 1;
+      background: var(--green-deep);
+      color: var(--paper);
+    }
+
+    @media (max-width: 680px){
+      .atoms img{ width: 100%; height: 280px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <h1>Item Details</h1>
+    <span id="backLink" onclick="window.location.href='tatti.html'">← Back to all items</span>
+    <div id="itemContainer">
+      <p>Loading...</p>
+    </div>
+  </div>
+
+  <nav class="pill-nav">
+    <a href="Buy.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Buy
+    </a>
+    <a href="Sell.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Sell
+    </a>
+    <a href="UserDashboard.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Dashboard
+    </a>
+  </nav>
+
+  <script>
+    const API = "http://localhost:5000";
+    const params = new URLSearchParams(window.location.search);
+    const itemId = params.get("id");
+    window.onload = loadItem;
+    async function loadItem() {
+      if (!itemId) {
+        document.getElementById("itemContainer").innerHTML = "<p>No item ID provided.</p>";
+        return;
+      }
+      try {
+        const res = await fetch(`${API}/item/${itemId}`);
+        const item = await res.json();
+        if (!item || !item.title) {
+          document.getElementById("itemContainer").innerHTML = "<p>Item not found.</p>";
+          return;
+        }
+        renderItem(item);
+      } catch (err) {
+        console.error("Error loading item:", err);
+        document.getElementById("itemContainer").innerHTML = "<p>Error loading item.</p>";
+      }
+    }
+    function renderItem(item) {
+      const container = document.getElementById("itemContainer");
+      const soldOut = item.status === "Sold";
+      container.innerHTML = `
+        <div class="atoms">
+          <img src="data:image/jpeg;base64,${item.image}" />
+          <div class="passion">
+            <div class="card">
+              <h2>${item.title}</h2>
+              <span class="label">Seller</span>
+              <p>${item.sellerName}</p>
+            </div>
+            <div class="card">
+              <span class="label">Condition</span>
+              <p>${item.condition || "Not specified"}</p>
+              <br>
+              <span class="label">Quality Checked</span>
+              <span class="badge ${soldOut ? '' : ''}">${item.qualityChecked ? "✓ Yes" : "No"}</span>
+            </div>
+            <div class="card">
+              <span class="label">Description</span>
+              <p>${item.description || "No description provided."}</p>
+              ${
+                soldOut
+                  ? `<br><span class="badge sold-badge">Sold Out</span>`
+                  : `<button onclick="buyItem('${item._id}')">Buy for ₹200</button>`
+              }
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    async function buyItem(id) {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${API}/buy-item/${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + token
+          }
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message);
+        }
+        alert("Item Purchased for ₹200!");
+        loadItem();
+      } catch (err) {
+        console.error("Error buying item:", err);
+        alert("Error buying item: " + err.message);
+      }
+    }
+  </script>
+</body>
+</html>
