@@ -290,10 +290,34 @@ async function loadMyItems() {
 }
 //Delete Item
 async function deleteItem(id) {
-  await fetch(`${API}/item/${id}`, {
-    method: "DELETE"
-  });
-  loadMyItems();
+    try {
+        // Validate ID
+        if (!id || typeof id !== "string" && typeof id !== "number") {
+            throw new Error("Invalid item ID");
+        }
+
+        const response = await fetch(`${API}/item/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        // Check if the request was successful
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Delete failed: ${response.status} ${errorText}`);
+        }
+
+        console.log(`Item ${id} deleted successfully`);
+
+        // Reload items after deletion
+        await loadMyItems();
+
+    } catch (error) {
+        console.error("Error deleting item:", error.message);
+        alert(`Could not delete item: ${error.message}`);
+    }
 }
 // POST new item to backend
 async function addItem() {
