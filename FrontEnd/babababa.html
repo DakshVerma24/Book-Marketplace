@@ -304,7 +304,7 @@ async function deleteItem(id) {
       }
       loadMyItems();
     } catch (err) {
-      console.error("Error Deleting item:" err);
+      console.error("Error Deleting item:", err);
       alert("error deleting item:" + err.message);
     }
 }
