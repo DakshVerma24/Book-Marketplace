@@ -16,6 +16,18 @@
       --line: rgba(33,31,27,0.12);
     }
     *{box-sizing:border-box;}
+    select {
+      padding: 13px 16px;
+      margin: 0 0 14px;
+      width: 100%;
+      border:1px solid var(--line);
+      border-radius:10px;
+      font-family:'Inter', sans-serif;
+      font-size:0.95rem;
+      background:var(--paper);
+      color:var(--ink);
+      display:block;
+    }
     body {
       margin:0;
       font-family:'Inter', sans-serif;
@@ -344,7 +356,7 @@ throw new Error(data.message);
     imageInput.value = "";
     document.getElementById("titleInput").value = "";
     document.getElementById("descriptionInput").value = "";
-    document.getElementById("conditionInput").value = "";
+    document.getElementById("conditionInput").value = "Bad";
     document.getElementById("qualityInput").checked = false;
     loadMyItems();
   } catch (err) {
