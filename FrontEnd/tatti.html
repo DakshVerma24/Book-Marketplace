@@ -223,7 +223,7 @@ function renderItems(items) {
   items.forEach(item => {
     div.innerHTML += `
       <div class="card">
-        <img src="data:image/jpeg;base64,${item.image}" />
+        <img src="${item.image}" loading="lazy" />
         <h3>${item.title}</h3>
         <p>Price: ₹200</p>
         <p>Seller: ${item.sellerName}</p>

@@ -7,6 +7,13 @@ const multer = require("multer");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
+const {v2: cloudinary} = require("cloudinary");
+const streamifier = require("streamifier");
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 const app = express();
 
@@ -180,6 +187,22 @@ const Item = mongoose.model("Item", ItemSchema);
 // Image upload setup
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+//Cloudinary Image Setup
+function uploadToCloudinary(buffer) {
+    return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: "kitaabi-keeda"
+            },
+            (error, result) => {
+                if (error) reject(error);
+                else resolve(result);
+            }
+        );
+
+        streamifier.createReadStream(buffer).pipe(stream);
+    });
+}
 
 // Add Item
 app.post("/add-item", auth, upload.single("image"), async (req, res) => {
@@ -189,15 +212,14 @@ app.post("/add-item", auth, upload.single("image"), async (req, res) => {
 });
 }  
 
-
 try {
-    const base64Image = req.file.buffer.toString("base64");
+    const result = await uploadToCloudinary(req.file.buffer);
 
     const user = await User.findById(req.userId);
 
     const item = new Item({
       title: req.body.title,
-      image: base64Image,
+      image: result.secure_url,
       sellerId: req.userId,
       description: req.body.description,
       condition: req.body.condition,
