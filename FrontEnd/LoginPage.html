@@ -74,7 +74,7 @@
     }
 
     .field-label{
-      font-family: 'JetBrains Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;)
       font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -138,6 +138,9 @@
       .auth-card{ padding:32px 22px; border-radius:16px; }
       .wordmark{ font-size:1.4rem; margin-bottom:28px; }
     }
+    Error {
+      color: Red;
+      }
   </style>
 </head>
 <body>
@@ -160,6 +163,7 @@
 
     <label class="field-label" for="phoneInput">Phone Number</label>
     <input type="text" id="phoneInput" placeholder="10-digit mobile number">
+    <p id="phoneErr" class="Error"></p>
 
     <button onclick="addUser()">Register</button>
   </div>
@@ -191,7 +195,7 @@ async function addUser() {
     }
 
     if (!phoneRegex.test(phone)) {
-        alert("Please enter a valid 10-digit phone number.");
+        document.getElementById(`phoneErr`).textContent = "Please Enter a valid 10 digit Number";
         return;
     }
 
