@@ -219,6 +219,7 @@ async function loadCart() {
       items.innerHTML += `
         <div class="card">
           <h3>${purchase.bookTitle}</h3>
+          <p>Sold by ${purchase.sellerName || "Unknown"}</p>
           <p>Bought on ${new Date(purchase.soldAt).toLocaleDateString()}</p>
         </div>
       `;
