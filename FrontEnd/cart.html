@@ -1,1 +1,28 @@
+<html>
+<head><title>Your Cart</title></head>
+
+<body>
+<h1>View Your Cart Here:</h1>
+<div id="items" class="card"></div>
+</body>
+<script>
+const API = "https://book-marketplace-backend-49er.onrender.com";
+const purchases = await purchasesResponse.json();
+document.getElementById("purchased").innerText = purchases.length;
+if (purchases.length === 0) {
+items.innerHTML = `
+    <h1>No Purchases Yet</h1>
+`;
+} else {
+purchases.forEach((purchase, index) => {
+    items.innerHTML += `
+            <p>${purchase.bookTitle}</p>
+            <p>${purchase.sellerName}</p>
+    `;
+});
+}
+}
+
+</script>
+</html>
 
